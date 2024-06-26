@@ -16,4 +16,13 @@ router.get("/register", (req,res) => {
     })
 })
 
+router.post("/login", (req,res)=> {
+    res.redirect("/")
+    console.log(req.body)
+})
+router.post("/register", (req,res) =>{
+    res.redirect("/")
+    console.log(req.body)
+})
+
 export default router
