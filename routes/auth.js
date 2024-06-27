@@ -1,4 +1,5 @@
 import {Router} from "express"
+import User from "../models/User.js"
 
 const router = Router()
 
@@ -20,9 +21,17 @@ router.post("/login", (req,res)=> {
     res.redirect("/")
     console.log(req.body)
 })
-router.post("/register", (req,res) =>{
+router.post("/register", async (req,res) =>{
+
+    const user = new User.create(req.body)
+    try {
+    await user.save()
+    response.send(user);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+    console.log(user)
     res.redirect("/")
-    console.log(req.body)
 })
 
 export default router

@@ -21,15 +21,14 @@ app.use(AuhtRouter)
 app.use(ProductsRouter)
 
 
-const startApp = () => {
+const startApp = async () => {
     try {
         const options = {
           socketTimeoutMS: 5000 // Set a 5-second timeout
         };
         
-        mongoose.connect(process.env.MONGO_URI, options)
-          .then(() => console.log('MongoDB connected successfully'))
-          .catch(err => console.error('Error connecting to MongoDB:', err));
+       await mongoose.connect(process.env.MONGO_URI, options)
+          console.log("MongoDB was connected")
         
         const PORT = process.env.PORT || 5100
         app.listen(5100, () => console.log(`Server is working on PORT : ${PORT}`))
