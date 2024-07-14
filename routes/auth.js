@@ -1,35 +1,46 @@
 import {Router} from "express"
 import bcrypt from "bcrypt"
 import User from "../models/user.js  "
+import flash from "express-flash"
 
 const router = Router()
 
 router.get("/login", (req,res) => {
     res.render("login",{
         title:"Abdu || Login",
-        isLogin : true
+        isLogin : true,
+        loginError : req.flash("loginError")
     })
 })
 
 router.get("/register", (req,res) => {
     res.render("register", {
         title:"Abdu || Register",
-        isRegister : true
+        isRegister : true,
+        registerError : req.flash("registerError")
     })
 })
 
 router.post("/login", async (req,res)=> {
-   
-    const existUser = await User.findOne({email : req.body.email})
-    
+    const {email,password} = req.body
+    if(!email || !password) {
+        req.flash("loginError", "All fields are required")
+        res.redirect("/login")
+        return
+    }
+
+
+    const existUser = await User.findOne({email})
     if(!existUser) {
-        console.log("User not founnd")
+        req.flash("loginError", "Email is not found")
+        res.redirect("/login")
         return
     }
     
-    const existPassword = await bcrypt.compare(req.body.password, existUser.password)
+    const existPassword = await bcrypt.compare(password, existUser.password)
     if(!existPassword) {
-        console.log("Password not match")
+        req.flash("loginError", "Password is not correct")
+        res.redirect("/login")
         return
     }
 
@@ -39,6 +50,12 @@ router.post("/login", async (req,res)=> {
 })
 router.post("/register", async (req,res) =>{
     const {firstname,lastname,email,password}  = req.body
+    if(!firstname || !lastname || !email || !password) {
+        req.flash("registerError", "All fields are required")
+        res.redirect("/register")
+        return
+    }
+
     const hashedPassword = await bcrypt.hash(password,8)
     const userDate = {
         firstName  : firstname,

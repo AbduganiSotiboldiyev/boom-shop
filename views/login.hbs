@@ -1,6 +1,12 @@
 <div class="w-75 mx-auto">
-    <p class="fs-1"> Login</p>
-    <form action="/login" method="post">
+    <p class="fs-1 "> Login</p>
+    <div class="mb-4">
+        {{#if loginError}}
+            {{loginError}}
+        {{/if}}
+
+    </div>
+    <form action="/login" method="post" class="mt-2">
         <div class="form-floating mb-3">
             <input type="email" class="form-control" name="email" id="floatingInput" placeholder="name@example.com">
             <label for="floatingInput">Email address</label>

@@ -2,7 +2,8 @@ import express from "express"
 import { create } from "express-handlebars"
 import mongoose from "mongoose"
 import * as dotenv from "dotenv"
-// routes
+import flash from "express-flash"
+import session from "express-session"
 import AuhtRouter from "./routes/auth.js"
 import ProductsRouter from "./routes/products.js"
 
@@ -18,6 +19,8 @@ app.use(express.urlencoded({extended:true}))
 
 app.use(express.static("public"))
 app.use(express.json())
+app.use(session({secret :"Abdu", resave : false,saveUninitialized:false}))
+app.use(flash())
 app.use(AuhtRouter)
 app.use(ProductsRouter)
 

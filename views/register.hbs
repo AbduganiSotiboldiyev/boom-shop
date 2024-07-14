@@ -1,5 +1,11 @@
 <div class="w-75 mx-auto">
     <p class="fs-1"> Register</p>
+    <div class="mb-4">
+        {{#if registerError}}
+        {{registerError}}
+        {{/if}}
+    
+    </div>
     
     <form action="/register" method="post">
     <div class="d-flex  gap-3 mb-3">
