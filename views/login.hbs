@@ -2,7 +2,11 @@
     <p class="fs-1 "> Login</p>
     <div class="mb-4">
         {{#if loginError}}
-            {{loginError}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error!{{loginError}} </strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+           
         {{/if}}
 
     </div>

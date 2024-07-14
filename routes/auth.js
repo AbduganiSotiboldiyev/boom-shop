@@ -56,6 +56,13 @@ router.post("/register", async (req,res) =>{
         return
     }
 
+    const existEmail = await User.findOne({email})
+    if(existEmail) {
+        req.flash("registerError", "Email already exist")
+        res.redirect("/register")
+        return
+    }
+
     const hashedPassword = await bcrypt.hash(password,8)
     const userDate = {
         firstName  : firstname,

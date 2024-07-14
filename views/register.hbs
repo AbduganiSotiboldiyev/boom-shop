@@ -1,8 +1,12 @@
 <div class="w-75 mx-auto">
     <p class="fs-1"> Register</p>
+
     <div class="mb-4">
         {{#if registerError}}
-        {{registerError}}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error! {{registerError}}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         {{/if}}
     
     </div>
