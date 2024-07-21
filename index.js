@@ -6,6 +6,7 @@ import flash from "express-flash"
 import session from "express-session"
 import cookieParser from "cookie-parser"
 
+
 // Router
 import AuhtRouter from "./routes/auth.js"
 import ProductsRouter from "./routes/products.js"
