@@ -3,16 +3,14 @@ import bcrypt from "bcrypt"
 import User from "../models/user.js  "
 import flash from "express-flash"
 import generateToken from "../services/token.js"
+import signMiddleware from "../middleware/signMiddleware.js"
 
 const router = Router()
 
 
 
-router.get("/login", (req,res) => {
-    if(req.cookies.token) {
-        res.redirect("/")
-        return
-    }
+router.get("/login", signMiddleware,(req,res) => {
+   
     res.render("login",{
         title:"Abdu || Login",
         isLogin : true,
@@ -20,11 +18,8 @@ router.get("/login", (req,res) => {
     })
 })
 
-router.get("/register", (req,res) => {
-     if(req.cookies.token) {
-        res.redirect("/")
-        return
-    }
+router.get("/register",signMiddleware, (req,res) => {
+   
     res.render("register", {
         title:"Abdu || Register",
         isRegister : true,
