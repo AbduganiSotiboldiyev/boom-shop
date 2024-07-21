@@ -10,7 +10,8 @@ router.get("/",  async (req, res) =>{
     
     res.render("index",{
         title: "Abdu || APP",
-        products : products
+        products : products.reverse(),
+        userId : req.userId? req.userId.toString() : null
     })
 
 })

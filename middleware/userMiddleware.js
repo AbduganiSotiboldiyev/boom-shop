@@ -2,7 +2,8 @@ import User from "../models/user.js  "
 import jwt from "jsonwebtoken"
 export default async function(req, res,next) {
     if(!req.cookies.token) {
-        res.redirect("/login")
+        // res.redirect("/login")
+        next()
         return
     }
 
