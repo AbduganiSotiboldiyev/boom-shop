@@ -28,6 +28,17 @@ router.get("/products", async (req,res) => {
     })
 })
 
+router.get("/product/:id", async (req,res) => {
+    const id = req.params.id
+    const product = await Products.findById(id).populate("user").lean()
+    
+    res.render("product",{
+        title: `Abdu || ${product.title}`,
+        product : product,
+    })
+    
+})
+
 router.get("/add", authMiddleware,(req,res) => {
   
     res.render("add",{
