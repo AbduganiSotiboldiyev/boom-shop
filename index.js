@@ -6,6 +6,8 @@ import flash from "express-flash"
 import session from "express-session"
 import AuhtRouter from "./routes/auth.js"
 import ProductsRouter from "./routes/products.js"
+import varMiddleware from "./middleware/var.js"
+import cookieParser from "cookie-parser"
 
 dotenv.config()
 const app = express()
@@ -19,10 +21,13 @@ app.use(express.urlencoded({extended:true}))
 
 app.use(express.static("public"))
 app.use(express.json())
+app.use(cookieParser())
 app.use(session({secret :"Abdu", resave : false,saveUninitialized:false}))
 app.use(flash())
+app.use(varMiddleware)
 app.use(AuhtRouter)
 app.use(ProductsRouter)
+
 
 
 const startApp = async () => {
