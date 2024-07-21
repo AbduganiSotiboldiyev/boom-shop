@@ -3,4 +3,5 @@ export default function(req, res,next) {
         res.redirect("/")
         return
     }
+    next();
 }

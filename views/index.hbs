@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main page</title>
-</head>
-<body>
-    <h1>Main page</h1>
-    <div>
-        <a href="/about">About page</a>
+{{#if products.length}}
+    <div class='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-5'>
+        {{#each products}}
+        <div class='col'>
+            <div class='card shadow-lg p-3 mb-5 bg-body rounded '>
+                <img src='{{this.image}}' />
+                <div class='card-body'>
+                    <p class='card-text fw-bold'>{{this.title}}</p>
+                    <div class='d-flex justify-content-end align-items-center'>
+                        <small class='text-muted fs-5'>{{this.price}}.00$</small>
+                    </div>
+                </div>
+                <div class='card-footer'>
+                    <div class='btn-group btn-group-sm' role='group' aria-label='Basic example'>
+                        <button type='button' class='btn btn-outline-primary'>Detail</button>
+                        <button type='button' class='btn btn-outline-secondary'>Edit</button>
+                        <button type='button' class='btn btn-outline-danger'>Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
     </div>
-</body>
-</html>
+{{else}}
+    <p>No product</p>
+{{/if}}

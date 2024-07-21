@@ -86,7 +86,7 @@ router.post("/register", async (req,res) =>{
     const user = await User.create(userDate)
     const token = generateToken(user._id)
     res.cookie("token",token, {httpOnly : true, maxAge: 900000})
-    console.log(token)
+ 
 
 	res.redirect('/')
 })
