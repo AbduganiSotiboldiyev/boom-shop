@@ -39,8 +39,9 @@ router.get("/product/:id", async (req,res) => {
     
 })
 
+// add product
 router.get("/add", authMiddleware,(req,res) => {
-  
+    
     res.render("add",{
         title : "Abdu  || Add",
         isAdd : true,
@@ -50,14 +51,52 @@ router.get("/add", authMiddleware,(req,res) => {
 
 router.post("/add-products", userMiddleware,async (req,res) =>{
     const {title,description,image,price} = req.body
-    if(!title, !description,!image,!price) {
+    if(!title || !description || !image || !price) {
         req.flash("errorAddingProduct", "All fields are required")
         res.redirect("/add")
         return
     }
- 
+    
     await Products.create({...req.body, user : req.userId})
     res.redirect("/")
 })
+
+// edit product
+router.get("/product-edit/:id", async (req,res) =>{
+    
+    const id = req.params.id
+    const productEdit  = await Products.findById(id).populate("user").lean()
+
+    res.render("product-edit", {
+        title: `Abdu || ${productEdit.title}`,
+        productEdit : productEdit,
+        updateError: req.flash("updateError")
+    })
+    
+})
+
+router.post("/product-edit/:id", async (req,res)=> {
+    const {title,description,image,price} = req.body
+    const id = req.params.id
+    if(!title || !description || !image || !price) {
+        req.flash("updateError", "All fields are required")
+        res.redirect(`/product-edit/${id}`)
+        return
+    }
+    await Products.findByIdAndUpdate(id, {...req.body}, {new : true})
+   res.redirect("/products")
+})
+// router.post('/product-edit/:id', async (req, res) => {
+// 	const {title, description, image, price} = req.body
+// 	const id = req.params.id
+// 	if (!title || !description || !image || !price) {
+// 		req.flash('updateError', 'All fields is required')
+// 		res.redirect(`/product-edit/${id}`)
+// 		return
+// 	}
+
+// 	await Products.findByIdAndUpdate(id, req.body, {new: true})
+// 	res.redirect('/products')
+// })
 
 export default router

@@ -24,7 +24,11 @@
                         </button>
                     {{#if @root.token}}
                     {{#ifequal   user._id @root.userId}}
-                    <button type='button' class='btn btn-outline-secondary'>Edit</button>
+                    <button type='button' class='btn btn-outline-secondary'>
+                        <a href="/product-edit/{{_id}}" class="text-decoration-none">
+                            Edit
+                        </a>
+                    </button>
                     <button type='button' class='btn btn-outline-danger'>Delete</button>
                     {{/ifequal}}
                     {{/if}}
