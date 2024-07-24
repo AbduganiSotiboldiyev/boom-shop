@@ -26,7 +26,9 @@
                                     Edit
                                 </a>
                             </button>
-                            <button type='button' class='btn btn-outline-danger'>Delete</button>
+                            <form action="/delete-post/{{_id}}" method="post">
+                                <button  type='submit'  class='btn btn-outline-danger'>Delete</button>
+                            </form>
                             {{/ifequal}}
                         {{/if}}
                     </div>

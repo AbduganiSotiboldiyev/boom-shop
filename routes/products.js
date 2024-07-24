@@ -86,17 +86,11 @@ router.post("/product-edit/:id", async (req,res)=> {
     await Products.findByIdAndUpdate(id, {...req.body}, {new : true})
    res.redirect("/products")
 })
-// router.post('/product-edit/:id', async (req, res) => {
-// 	const {title, description, image, price} = req.body
-// 	const id = req.params.id
-// 	if (!title || !description || !image || !price) {
-// 		req.flash('updateError', 'All fields is required')
-// 		res.redirect(`/product-edit/${id}`)
-// 		return
-// 	}
 
-// 	await Products.findByIdAndUpdate(id, req.body, {new: true})
-// 	res.redirect('/products')
-// })
+router.post("/delete-post/:id", async (req,res) => {
+    const id = req.params.id
+    await Products.findByIdAndDelete(id)
+    res.redirect("/")
+})
 
 export default router
